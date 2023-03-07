@@ -4,7 +4,8 @@ public class Kmeans {
     private int numClusters;
     private int numIterations;
     private Random random;
-    private Map<Integer,Centroide> cluster;
+
+    private Map<Integer,Row> cluster;
 
     public Kmeans(int numClusters, int numIterations, long seed){
         this.random=new Random(seed);
@@ -16,9 +17,11 @@ public class Kmeans {
         for(int i=0;i<numClusters;i++){
             centro.putInCentroides(i,datos.getRowAt(random.nextInt()));
         }
-        for(int j=0;j<numIterations;j++){
+        for(int j=0;j<numIterations;j++){//ESTE BUCLE ANINADO ESTA MUY MAL... PENSAR MÁS
             for(int k=0;k<datos.getRows().size();k++){
-                List<Double> distancia=coordenadas(centro.getInCentroides(j).getData(),datos.getRowAt(k).getData());
+                for(int x=0;x<centro.getCentroides().size();x++){
+                    List<Double> distancia=coordenadas(centro.getInCentroides(x).getData(),datos.getRowAt(k).getData());
+                }
             }
         }
     }
@@ -33,5 +36,5 @@ public class Kmeans {
         }
         return resultado;
     }
-    //HAY QUE REALIZAR UN METODO AUXILIAR PARA ESTIMATE Y PARA TRAIN PERO AUN NO SABEMOS CUAL ES.
+    //HAY QUE REALIZAR UN METODO AUXILIAR PARA ESTIMATE Y PARA TRAIN QUE SESA EL MISMO
 }
